@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../fdf.h"
 
 int	ft_exit(int keycode, void *param)
@@ -20,98 +21,47 @@ int	ft_exit(int keycode, void *param)
 	return (0);
 }
 
-// int click_square(int button, int x, int y, t_env *e)
-// {
-// 	e->x = 0;
-// 	while (e->x < 150)
-// 	{
-// 		e->y = 0;
-// 		while (e->y < 150)
-// 		{
-// 				mlx_pixel_put(e->mlx, e->win, x - e->x, y - e->y, 0x0000FFFF - y + e->y - x + e->x);
-// 				e->y++;
-// 		}
-// 		e->x++;
-// 	}
-// 	return (0);
-// }
-
-
 int	main(void)
 {
-	// t_env *e;
+	t_env *env;
+	env = (t_env*)ft_memalloc(sizeof(t_env));
+	MLX = mlx_init();
+	WIN = mlx_new_window(MLX, 500, 500, "testit");
+	mlx_key_hook(WIN, ft_exit, 0);
 
 
-	// void *mlx2;
-	// e->x = 15;
-	// e->y = 15;
-	// pte("passage 1");
-	// e->mlx = mlx_init();
-	// e->win = mlx_new_window(e->mlx, 1000, 1000, "mlx 42");
-	// mlx_mouse_hook(e->win, click_square, e);	
-	// mlx_key_hook(win, ft_exit, e);
-	int x;
-	int y;
-	void *mlx;
-	void *win;
-	void *image;
-	char *pixel;
-	int bpp;
-	int size_line;
-	int endian;
-	int color;
+	int x1 = 1;
+	int y1 = 1;
 
+	int x2 = 200;
+	int y2 = 400;
 
-	x = 1;
-	y = 1;
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 500, 500, "testit");
-	mlx_key_hook(win, ft_exit, 0);
-	image = mlx_new_image(mlx, 500, 500);
-	
+	int x = x1;
 
-	pixel = mlx_get_data_addr(image, &bpp, &size_line, &endian);
+	while (x <= x2)
+	{
+		mlx_pixel_put(MLX, WIN, x, y1+((y2-y1)*(x-x1))/(x2-x1), 0xFF0000);
+		x++;
+	}
+	// IMAGE = mlx_new_image(MLX, 500, 500);
+	// PIX = mlx_get_data_addr(IMAGE, &BPP, &SL, &env->endian);
+	// COLOR =	mlx_get_color_value(MLX, 0xFF0000);
+	// *(unsigned int *)(PIX + (BPP / 8 * X + SL * Y)) = 0xFF0000;
 
+	// mlx_put_image_to_window(MLX, WIN, IMAGE, 0, 0);
 
-
-	ptn(bpp);ptcn;
-	ptn(size_line);ptcn;
-
-
-
-	*(unsigned int *)(pixel + (bpp / 8 * x + size_line * y)) = 0xFFA500;
-
-	color =	mlx_get_color_value(mlx, 0x00000F);
-	ptn(color);ptcn;
-	
-	mlx_put_image_to_window(mlx, win, image, 0, 0);
-
-	mlx_loop(mlx);
+	mlx_loop(MLX);
 	return(0);
 }	
-	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	// Y = 0;
+	// while (Y <= 110)
+	// {
+	// 	X = 0;
+	// 	while (X <= 110)
+	// 	{
+	// 		*(unsigned int *)(PIX + (BPP / 8 * X + SL * Y)) = COLOR;
+	// 		X++;
+	// 	}
+	// 	Y++;
+	// }

@@ -21,7 +21,9 @@ int mlx_destroy_image(void *mlx_ptr, void *img_ptr);
 
  DESCRIPTION
 
-mlx_new_image()
+****************
+void * mlx_new_image(void *mlx_ptr, int width, int height);
+****************
  creates a new image in memory. It returns a
 void *
 identifier need to manipulate this image later. It only needs
@@ -33,7 +35,9 @@ parameters, and the
 mlx_ptr
 connection identifier (see the mlx manual).
 
-mlx_put_image_to_window()
+****************
+int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y);
+****************
 The user can draw inside the image (see below), and
 can dump the image inside a specified window at any time to
 display it on the screen. This is done using
@@ -45,7 +49,9 @@ and
 img_ptr
 The (x ,y) coordinates define where the image should be placed in the window.
 
-mlx_get_data_addr()
+****************
+char * mlx_get_data_addr(void *img_ptr, int *bits_per_pixel, int *size_line, int *endian);
+****************
  returns information about the created image, allowing a user
 to modify it later. The
 
@@ -66,8 +72,7 @@ tells you wether the pixel color in the image needs to be stored in
 little endian (endian == 0)
 or big endian (endian == 1).
 
-mlx_get_data_addr
-returns a
+mlx_get_data_addr returns a
 char *
 address that represents the begining of the memory area where the image
 is stored. From this adress, the first
@@ -81,11 +86,9 @@ size_line
 to the adress to get the begining of the second line. You can reach any
 pixels of the image that way.
 
-mlx_destroy_image
-destroys the given image (img_ptr).
-
- STORING COLOR INSIDE IMAGES
-
+***************
+unsigned int mlx_get_color_value(void *mlx_ptr, int color);
+***************
 Depending on the display, the number of bits used to store a pixel color
 can change. The user usually represents a color in RGB mode, using
 one byte for each component (see
@@ -109,7 +112,17 @@ computer's endian. If the endian of the image (in fact the endian of
 the X-Server's computer for remote X11 display) differs from the local endian, then the value should
 be transformed before being used.
 
+**************
+int mlx_destroy_image(void *mlx_ptr, void *img_ptr);
+**************
+destroys the given image (img_ptr).
+
+ STORING COLOR INSIDE IMAGES
+
+
+************
  XPM IMAGES
+************
 
 The
 mlx_xpm_to_image
