@@ -1,3 +1,4 @@
+
 #include "../fdf.h"
 
 int	ft_exit(int keycode, void *param)

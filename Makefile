@@ -30,7 +30,7 @@ OBJ		= $(SRC:src/%.c=.obj/%.o)
 
 INC		= -I . -I libft
 
-LIB		= -L libft -L libmlx -lft -lmlx
+LIB		= -L libft -L libmlx -lft -lmlx 
 
 all:	$(NAME)
 

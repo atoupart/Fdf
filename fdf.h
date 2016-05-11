@@ -14,6 +14,7 @@
 # define FDF_H
 
 # include "libft/libft.h"
+# include <math.h>
 # include <mlx.h>
 
 # define X		env->x
