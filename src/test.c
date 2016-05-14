@@ -69,9 +69,6 @@ int	main(void)
 	int a = 0;
 
 
-	ptn(sizeof(x2));ptcn;
-	ptn(sizeof(y2));ptcn;
-
 	while (a <= 360)  // cercle|| r <= 500)
 	{
 		x2 = x1+(r*cos(a));
