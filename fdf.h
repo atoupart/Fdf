@@ -17,9 +17,13 @@
 # include <math.h>
 # include <mlx.h>
 
-
+# define X_MAX 	env->x_max
+# define Y_MAX 	env->y_max
+# define Z 		env->z
 # define X		env->x
 # define Y		env->y
+# define X1		env->x1
+# define Y1		env->y2
 # define Y2     env->y2
 # define X2     env->x2
 # define FD 	env->fd
@@ -36,8 +40,13 @@
 
 typedef struct	s_env
 {
+	int 		x_max;
+	int 		y_max;
+	int 		z;
 	int 		x;
-	int			y;
+	int 		y;
+	int 		x1;
+	int			y1;
 	int			x2;
 	int			y2;
 	int 		fd;
@@ -56,9 +65,7 @@ typedef struct	s_env
 
 void			ft_insert(int verif, char *str);
 void			ft_launch_mlx(t_env *env, int width, int height);
-int				ft_key(int keycode, void *env);
-void			ft_check_create_tab(char *str, t_env *env);
-void			ft_check_name(char *name, t_env *env);
-
+// int				ft_key(int keycode, void *env);
 
 #endif
+ 

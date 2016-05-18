@@ -22,7 +22,10 @@ FRAME	= -framework OpenGL -framework AppKit
 
 HEADER	= fdf.h
 
-FILES	= test.c
+FILES	= main.c\
+		ft_check_create_tab.c\
+		ft_check_name.c\
+		ft_insert.c
 
 SRC		= $(addprefix src/, $(FILES))
 
@@ -33,21 +36,22 @@ INC		= -I . -I libft
 LIB		= -L libft -L libmlx -lft -lmlx 
 
 all:	$(NAME)
+	@printf "Program is compiled.\n"
 
 $(NAME): make_libft $(OBJ)
-	$(CC) -g $(CFLAGS) $(FRAME)  $(OBJ) -o $(NAME) $(INC) $(LIB) 
+	@$(CC) -g $(CFLAGS) $(FRAME)  $(OBJ) -o $(NAME) $(INC) $(LIB) 
 
 .obj/%.o: src/%.c
-	mkdir -p .obj
-	$(CC) -c $< -o $@ $(CFLAGS) $(INC)
+	@mkdir -p .obj
+	@$(CC) -c $< -o $@ $(CFLAGS) $(INC)
 
 make_libft:
-	make -C ./libmlx/
-	make -C ./libft/
+	@make -C ./libmlx/
+	@make -C ./libft/
 
 clean:
 	make -C ./libft/ clean
-	$(RM) .obj
+	@$(RM) .obj
 
 
 fclean: clean

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_create_tab.c                                 :+:      :+:    :+:   */
+/*   ft_launch_mlx.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoupart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,44 +12,29 @@
 
 #include "../fdf.h"
 
-static int		ft_take_nb_elem(char *str)
-{
-	int			nb;
 
-	nb = 0;
-	while (*str)
+void	ft_launch_mlx
+
+int		z_here(char *s, int n)
+{
+	int		i;
+	int		k;
+
+	i = 0;
+	k = 0;
+	while (s[k])
 	{
-		if (ft_isdigit(*str))
+		if (ft_isdigit(s[k]) || s[k] == 45)
 		{
-			++nb;
-			while (*str && ft_isdigit(*str))
-				++str;
+			i++;
+			if (i == n + 1)
+			{
+				return (ft_atoi(s + k));
+			}
+			while ((ft_isdigit(s[k]) || s[k] == 45) && s[k + 1])
+				k++;
 		}
-		else
-			++str;
+		k++;
 	}
-	return (nb);
-}
-
-void			ft_check_create_tab(char *str, t_env *env)
-{
-	char		*tmp;
-
-	X = 0;
-	Y = 0;
-	ft_check_name(str, env);
-	FD = open(str, O_RDWR);
-	ft_insert(FD >= 0, "Open error : Couldn't retrive the filename.");
-	while (get_next_line(FD, &tmp))
-		{
-			Y = ft_take_nb_elem(tmp);
-			X++;
-		}
-	TAB = (int**)malloc(sizeof(int*) * (X + 1));
-	ft_insert(TAB != NULL, "Program stopped : Malloc of TAB failed.");
-	ft_insert(close(FD) != -1, "Close error : Couldn't close the file.");
-
-
-
-finir de comprendre comment ne pas essaye de faire deux appelle a get next line en sainer de hanouna
+	return (0);
 }
