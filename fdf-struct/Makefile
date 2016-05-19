@@ -24,7 +24,10 @@ HEADER	= fdf.h
 
 FILES	= main.c\
 		ft_insert.c\
-		ft_fill_pix.c
+		ft_fill_pix.c\
+		ft_launch_mlx.c\
+		ft_key.c
+		# test.c
 
 SRC		= $(addprefix src/, $(FILES))
 

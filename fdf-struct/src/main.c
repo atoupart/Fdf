@@ -12,7 +12,7 @@
 
 #include "../fdf.h"
 
-static int		ft_take_nb_elem(char *str, t_env *env)
+static int		ft_take_nb_elem(char *str)
 {
 	int			nb;
 	int 		k;
@@ -58,7 +58,7 @@ static void			ft_get_max_x_y(char *file, t_env *env)
 	I = 0;
 	while (get_next_line(FD, &line) && I <= Y_MAX)
 	{
-		X_MAX[I++] = ft_take_nb_elem(line, env);
+		X_MAX[I++] = ft_take_nb_elem(line);
 	}
 	ft_insert(close(FD) != -1, "Close error : Couldn't close the file.");
 	ft_strdel(&line);
@@ -108,13 +108,26 @@ int		main(int ac, char **av)
 	ft_check_name(av[1], env);
 	ft_malloc_pix(av[1], env);
 	ft_fill_pix(av[1], env);
+	// Y = -1;
+	// while (++Y <= Y_MAX)
+	// {
+	// 	X = -1;
+	// 	while (++X <= X_MAX[Y])
+	// 	{
+	// 		pts("PIX x = ");ptn(PIX[Y][X].x);ptcn;
+	// 		pts("PIX y = ");ptn(PIX[Y][X].y);ptcn;
+	// 		pts("PIX z = ");ptn(PIX[Y][X].z);ptcn;
+	// 		pts("PIX color = ");ptn(PIX[Y][X].color);ptcn;
+
+	// 	}
+	// }
 
 	pte("\033[32m end");
-	// if (ac == 4)
-	// 	ft_launch_mlx(env, ft_atoi(av[2]), ft_atoi(av[3]));
-	// else if (ac == 3)
-	// 	ft_launch_mlx(env, ft_atoi(av[2]), 0);
-	// else
-	// 	ft_launch_mlx(env, 0, 0);
+	if (ac == 4)
+		ft_launch_mlx(env, ft_atoi(av[2]), ft_atoi(av[3]));
+	else if (ac == 3)
+		ft_launch_mlx(env, ft_atoi(av[2]), 0);
+	else
+		ft_launch_mlx(env, 0, 0);
 	return (0);
 }

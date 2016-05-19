@@ -12,9 +12,13 @@
 
 #include "../fdf.h"
 
-int	ft_key(int keycode, void *env)
+int	ft_key(int keycode, void *param)
 {
+	param = 0;
 	if (keycode == 53)
+	{
+		ft_putstr("\033[32mProgram stopped properly, congratulations boy !\n");
 		exit(EXIT_SUCCESS);
+	}
 	return (0);
 }

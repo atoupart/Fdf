@@ -28,7 +28,8 @@ int	main(void)
 	WIN = mlx_new_window(MLX, 1000, 1000, "testit");
 	mlx_key_hook(WIN, ft_exit, 0);
 	IMAGE = mlx_new_image(MLX, 1000, 1000);
-	PIX = mlx_get_data_addr(IMAGE, &BPP, &SL, &env->endian);
+	PIXEL = mlx_get_data_addr(IMAGE, &BPP, &SL, &env->endian);
+	BPP /= 8;
 	COLOR =	mlx_get_color_value(MLX, 0xFF0000);
 	int x1 = 0;
 	int y1 = 0;
@@ -37,7 +38,7 @@ int	main(void)
 	int x = y1;
 	while (x <= y2) // diagonale basse
 	{
-		*(unsigned int *)(PIX + (BPP / 8 * x + SL * (y1+((y2-y1)*(x-x1))/(x2-x1)))) = COLOR;
+		*(unsigned int *)(PIXEL + (BPP * x + SL * (y1+((y2-y1)*(x-x1))/(x2-x1)))) = COLOR;
 
 		x++;
 	}
@@ -45,7 +46,7 @@ int	main(void)
 	x2 = y1 = 999;
 	while (x <= x2) //diagonale haute
 	{
-		*(unsigned int *)(PIX + (BPP / 8 * x + SL * (y1+((y2-y1)*(x-x1))/(x2-x1)))) = 0x33EE11;
+		*(unsigned int *)(PIXEL + (BPP * x + SL * (y1+((y2-y1)*(x-x1))/(x2-x1)))) = 0x33EE11;
 		x++;
 	}
 	x = x1 = 0;
@@ -53,7 +54,7 @@ int	main(void)
 	x2 = 999;
 	while (x <= x2) // horizontale 
 	{
-		*(unsigned int *)(PIX + (BPP / 8 * x + SL * (y1+((y2-y1)*(x-x1))/(x2-x1)))) = 0xFFA500;
+		*(unsigned int *)(PIXEL + (BPP * x + SL * (y1+((y2-y1)*(x-x1))/(x2-x1)))) = 0xFFA500;
 		x++;
 	}
 	x = y1 = 0;
@@ -61,11 +62,11 @@ int	main(void)
 	y2 = 999;
 	while (x <= y2) // verticale
 	{
-		*(unsigned int *)(PIX + (BPP / 8 * x1+((x2-x1)*(x-y1))/(y2-y1) + SL * x)) = 0xDDAAEE;
+		*(unsigned int *)(PIXEL + (BPP * x1+((x2-x1)*(x-y1))/(y2-y1) + SL * x)) = 0xDDAAEE;
 		x++;
 	}
 	x1 = y1 = 500;
-	int r = 100;
+	int r = 400;
 	int a = 0;
 
 
@@ -73,7 +74,7 @@ int	main(void)
 	{
 		x2 = x1+(r*cos(a));
 		y2 = y1+(r*sin(a));
-		*(unsigned int *)(PIX + (BPP / 8 * x2 + SL * y2)) = 0xEEBBEA + 1000*a;
+		*(unsigned int *)(PIXEL + (BPP * x2 + SL * y2)) = 0xFFFFFF;
 		a++;
 		// r++;
 	}
