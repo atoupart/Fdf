@@ -41,7 +41,7 @@ static int		ft_take_nb_elem(char *str)
 }
 
 
-static void			ft_get_max_x_y(char *file, t_env *env)
+static void			ft_get_max_x_y(char *file, t_env *e)
 {
 	char 	*line;
 	
@@ -69,10 +69,10 @@ static void			ft_get_max_x_y(char *file, t_env *env)
 	ft_strdel(&line);
 }
 
-static void		ft_malloc_pix(char *file, t_env *env)
+static void		ft_malloc_pix(char *file, t_env *e)
 {
 	Y = 0;
-	ft_get_max_x_y(file, env);
+	ft_get_max_x_y(file, e);
 	PIX = (t_pix**)malloc(sizeof(t_pix*) * (Y_MAX + 1));
 	while (Y < Y_MAX)
 	{
@@ -92,7 +92,7 @@ static void		ft_malloc_pix(char *file, t_env *env)
 }
 	
 
-static void			ft_check_name(char *name, t_env *env)
+static void			ft_check_name(char *name, t_env *e)
 {
 	char *str = ".fdf";
 
@@ -112,7 +112,7 @@ int		main(int ac, char **av)
 	ft_check_name(av[1], env);
 	ft_malloc_pix(av[1], env);
 	ft_fill_pix(av[1], env);
-	pte("\033[32m end");
+	pte("\033[32m end\033[31m");
 	if (ac == 4)
 		ft_launch_mlx(env, ft_atoi(av[2]), ft_atoi(av[3]));
 	else if (ac == 3)

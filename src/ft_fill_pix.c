@@ -12,7 +12,7 @@
 
 #include "../fdf.h"
 
-void		ft_fill_pix(char *file, t_env *env)
+void		ft_fill_pix(char *file, t_env *e)
 {
 	char *line;
 	int  k;

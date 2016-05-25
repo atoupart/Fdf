@@ -12,65 +12,61 @@
 
 #include "../fdf.h"
 
-void		ft_draw_fdf(t_env *env)
+void		ft_draw_fdf(t_env *e)
 {
 	int k; // zoom horizontal
 	int j; // zoom vertical
 	int x;
-	Y = 0;
+	int y;
 	j = 0;
-	BPP /= 8;
-	X = 0;
 	k = 0;
-	x = 0;
+	y = -1;
+	while (++y < 2)
+	{ 
+		j += 20;
+		x = -1;
+		pts("########################   ligne = ");ptn(y);ptcn;ptcn;
 
-		while (++X < X_MAX[Y])
+		while (++x < 3)
 		{	
+
+			pts("PASSAGE ");ptn(x);ptcn;
+
+			pte(">>>horizontale");
 			k += 20;
-			j += 20;
-			X1 = PIX[Y][X].x;
-			Y1 = PIX[Y][X].y;
-			X2 = PIX[Y][X + 1].x + k;
-			Y2 = PIX[Y][X + 1].y;
-			x = -1;
-			while (++x <= X2) // horizontal
-				*(unsigned int *)(PIXEL + (BPP * x + SL * (Y1+((Y2-Y1)*(x-X1))/(X2-X1)))) = 0x009900;
+			e->x1 = PIX[y][x].x;
+			e->y1 = PIX[y][x].y;
+			
+			PIX[y][x + 1].x += k;
+			e->x2 = PIX[y][x + 1].x;
+			e->y2 = PIX[y][x + 1].y;
 
-			// x = -1;
-			// X1 = 0;
-			// Y1 = 0;
-			// X2 = 0;
-			// Y2 = j;
-			// while (++x <= Y2) // verticale
-			// {
-			// 	pte("debug4");
-			// 	*(unsigned int *)(PIXEL + (BPP * X1+((X2-X1)*(x-Y1))/(Y2-Y1) + SL * x)) = 0x009900;
-			// 	pte("debug5");
-			// }
-			// int x1 = PIX[Y][X].x;
-			// int y1 = PIX[Y][X].y;	
-			// int x2 = PIX[Y + 1][X].x;
-			// int y2 = PIX[Y + 1][X].y + j;
-			// x = 0;
-			// while (x <= y2) // verticale
-			// {
-			// 	*(unsigned int *)(PIXEL + (BPP * x1+((x2-x1)*(x-y1))/(y2-y1) + SL * x)) = 0xDDAAEE;
-			// 	x++;
-			// }
+			pts("x1 = ");ptn(e->x1);ptcn;
+			pts("y1 = ");ptn(e->y1);ptcn;
+			pts("x2 = ");ptn(e->x2);ptcn;
+			pts("y2 = ");ptn(e->y2);ptcn;ptcn;
 
-			env->x1 = PIX[Y][X].x;
-			env->y1	= PIX[Y][X].y;	
-			env->x2 = PIX[Y + 1][X].x;
-			env->y2 = PIX[Y + 1][X].y + j;
-			x = 0;
-			while (x <= env->y2) // verticale
+			if ((x + 1 < X_MAX[y]))
 			{
-				*(unsigned int *)(PIXEL + (BPP * env->x1+((env->x2-env->x1)*(x-env->y1))/(env->y2-env->y1) + SL * x)) = 0xDDAAEE;
-				x++;
+				ft_trace_line(e, 0x009900);
 			}
+
+			pte(">>>verticale");
+			e->x2 = e->x1;
+			PIX[y + 1][x].y += j;
+			e->y2 = PIX[y + 1][x].y;
+			pts("x1 = ");ptn(e->x1);ptcn;
+			pts("y1 = ");ptn(e->y1);ptcn;
+			pts("x2 = ");ptn(e->x2);ptcn;
+			pts("y2 = ");ptn(e->y2);ptcn;ptcn;
+			ft_trace_line(e, 0x009900);
+
+			// if ((y + 1 < Y_MAX))
+		}
 	}
 }
-void			ft_draw_line(t_env *env) // debug
+
+void			ft_draw_line(t_env *e) // debug
 {
 	int x1 = 0;
 	int y1 = 0;
@@ -89,7 +85,7 @@ void			ft_draw_line(t_env *env) // debug
 	}	
 }
 
-void			ft_draw_dot(t_env *env)
+void			ft_draw_dot(t_env *e)
 {
 	int j = 0;
 	int k;
@@ -102,29 +98,29 @@ void			ft_draw_dot(t_env *env)
 		{
 			X1 = k;
 			if (X1 >= 0 && X1 <= SL)
-				*(unsigned int *)(PIXEL + (BPP * X1 + SL * j)) = YELLOW;
+				*(unsigned int *)(PIXEL + (BPP / 8 * X1 + SL * j)) = YELLOW;
 			k += 20;
 		}
 
 		j += 20;
 	}
 }
-void			ft_launch_mlx(t_env *env, int userwidth, int userheight)
+void			ft_launch_mlx(t_env *e, int userwidth, int userheight)
 {
 	WIDTH = (userwidth > 0 ? userwidth : 1500);
 	HEIGHT = (userheight > 0 ? userheight : 1500);
 	MLX = mlx_init();
 	WIN = mlx_new_window(MLX, WIDTH, HEIGHT, "F_D_F"); // a proteger
 	IMAGE = mlx_new_image(MLX, WIDTH, HEIGHT);// a proteger
-	PIXEL = mlx_get_data_addr(IMAGE, &BPP, &SL, &env->endian); // a proteger
+	PIXEL = mlx_get_data_addr(IMAGE, &BPP, &SL, &e->endian); // a proteger
 
-	ft_draw_line(env);
+	ft_draw_line(e);
 
-	ft_draw_fdf(env);
+	ft_draw_fdf(e);
 
-	ft_draw_dot(env);
+	ft_draw_dot(e);
 
-	mlx_hook(WIN, 2, 1L << 2, ft_key, env);
+	mlx_hook(WIN, 2, 1L << 2, ft_key, e);
 
 	*(unsigned int *)PIXEL = RED;
 
@@ -132,42 +128,5 @@ void			ft_launch_mlx(t_env *env, int userwidth, int userheight)
 	mlx_destroy_image(MLX, IMAGE);
 	
 	mlx_loop(MLX);
-}		// X = -1;
-		// k = 0;
-		// while (++X < X_MAX[0])
-		// {
-		// 	X1 = PIX[0][X].x + k;
-		// 	if (X1 >= 0 && X1 <= SL)
-		// 		*(unsigned int *)(PIXEL + (BPP * X1 + SL * j)) = RED;
-		// 	k += 20;
-		// }
-		// j += 20;
-		// X = -1;
-		// k = 0;
-		// while (++X < X_MAX[6])
-		// {
-		// 	X1 = PIX[6][X].x + k;
-		// 	if (X1 >= 0 && X1 <= SL)
-		// 		*(unsigned int *)(PIXEL + (BPP * X1 + SL * j)) = RED;
-		// 	k += 20;
-		// }
-		// j += 20;
-		// X = -1;
-		// k = 0;
-		// while (++X < X_MAX[12])
-		// {
-		// 	X1 = PIX[12][X].x + k;
-		// 	if (X1 >= 0 && X1 <= SL)
-		// 		*(unsigned int *)(PIXEL + (BPP * X1 + SL * j)) = RED;
-		// 	k += 20;
-		// }
-		// j += 20;
-		// X = -1;
-		// k = 0;
-		// while (++X < X_MAX[19])
-		// {
-		// 	X1 = PIX[19][X].x + k;
-		// 	if (X1 >= 0 && X1 <= SL)
-		// 		*(unsigned int *)(PIXEL + (BPP * X1 + SL * j)) = RED;
-		// 	k += 20;
-		// }
+}
+

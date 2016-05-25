@@ -12,7 +12,7 @@
 
 #include "../fdf.h"
 
-int	ft_key(int keycode, t_env *env)
+int	ft_key(int keycode, t_env *e)
 {
 	if (keycode == 53)
 	{
@@ -22,7 +22,7 @@ int	ft_key(int keycode, t_env *env)
 	if (keycode == 69 || keycode == 78)
 	{	
 		I += (keycode == 69) ? 20 : -20;
-		ft_draw_line(env);
+		ft_draw_line(e);
 	}
 
 	return (0);

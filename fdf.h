@@ -25,30 +25,30 @@
 # define BLACK 0x000000
 # define PURPLE 0x800080
 # define CYAN 0x00ffff
-# define X_MAX 	env->x_max
-# define Y_MAX 	env->y_max
-# define Z 		env->z
-# define X		env->x
-# define Y		env->y
-# define X1		env->x1
-# define Y1		env->y2
-# define Y2     env->y2
-# define X2     env->x2
-# define FD 	env->fd
-# define MLX	env->mlx
-# define WIN	env->win
-# define IMAGE 	env->image
-# define PIXEL	env->pixel
-# define BPP	env->bpp
-# define SL		env->size_line
-# define COLOR 	env->color
-# define WIDTH  env->width
-# define HEIGHT env->height
-# define TAB 	env->tab
-# define PIX 	env->pix
-# define I 		env->i
-# define L 		env->l
-# define H 		env->h
+# define X_MAX 	e->x_max
+# define Y_MAX 	e->y_max
+# define Z 		e->z
+# define X		e->x
+# define Y		e->y
+# define X1		e->x1
+# define Y1		e->y2
+# define Y2     e->y2
+# define X2     e->x2
+# define FD 	e->fd
+# define MLX	e->mlx
+# define WIN	e->win
+# define IMAGE 	e->image
+# define PIXEL	e->pixel
+# define BPP	e->bpp
+# define SL		e->size_line
+# define COLOR 	e->color
+# define WIDTH  e->width
+# define HEIGHT e->height
+# define TAB 	e->tab
+# define PIX 	e->pix
+# define I 		e->i
+# define L 		e->l
+# define H 		e->h
 
 typedef struct 	s_pix
 {
@@ -73,6 +73,14 @@ typedef struct	s_env
 	int			y1;
 	int			x2;
 	int			y2;
+	int 		dx;
+	int 		dy;
+	int 		xinc;
+	int 		yinc;
+	int 		cumul;
+
+
+
 	int 		fd;
 	void		*mlx;
 	void		*win;
@@ -88,12 +96,12 @@ typedef struct	s_env
 	t_pix		**pix;
 }				t_env;
 
-
-void		ft_draw_line(t_env *env);
+void 			ft_trace_line(t_env *e, int color);
+void			ft_draw_line(t_env *e);
 void			ft_insert(int verif, char *str);
-void			ft_launch_mlx(t_env *env, int width, int height);
-void			ft_fill_pix(char *file, t_env *env);
-int				ft_key(int keycode, t_env *env);
+void			ft_launch_mlx(t_env *e, int width, int height);
+void			ft_fill_pix(char *file, t_env *e);
+int				ft_key(int keycode, t_env *e);
 
 #endif
  

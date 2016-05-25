@@ -26,8 +26,8 @@ FILES	= main.c\
 		ft_insert.c\
 		ft_fill_pix.c\
 		ft_launch_mlx.c\
-		ft_key.c
-
+		ft_key.c\
+		ft_tracer.c\
 
 SRC		= $(addprefix src/, $(FILES))
 
