@@ -12,9 +12,19 @@
 
 #include "../fdf.h"
 
-int	ft_key(int keycode, void *env)
+int	ft_key(int keycode, t_env *env)
 {
 	if (keycode == 53)
+	{
+		ft_putstr("\033[32mProgram stopped properly, congratulations boy !\n");
 		exit(EXIT_SUCCESS);
+	}
+	if (keycode == 69 || keycode == 78)
+	{	
+		I += (keycode == 69) ? 20 : -20;
+		ft_draw_line(env);
+	}
+
 	return (0);
 }
+

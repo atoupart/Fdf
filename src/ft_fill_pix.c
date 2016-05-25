@@ -20,17 +20,17 @@ void		ft_fill_pix(char *file, t_env *env)
 	Y = -1;
 	FD = open(file, O_RDONLY);
 	ft_insert(FD >= 0, "Open error : Couldn't retrive the filename.");
-	while (get_next_line(FD, &line) && ++Y <= Y_MAX)
+	while (get_next_line(FD, &line) && ++Y < Y_MAX)
 	{
-		X = 0;
+		X = -1;
 		k = 0;
 		while (line[k])
 		{
 			if (ft_isdigit(line[k]) || line[k] == '-')
 			{	
 				X++;
-				PIX[Y][X].x = X;
-				PIX[Y][X].y = Y;
+				// PIX[Y][X].x = X;
+				// PIX[Y][X].y = Y;
 				PIX[Y][X].z = ft_atoi(line + k);
 				while ((ft_isdigit(line[k]) || line[k] == '-') && line[k + 1])
 					k++;

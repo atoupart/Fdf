@@ -12,88 +12,85 @@
 
 #include "../fdf.h"
 
-static void 		ft_fill_line(char *line, t_env *env)
-{
-	int 	k;
-	int 	i;
-
-	k = 0;
-	i = 0;
-	bzero(TAB[Y])
-	while (line[k])
-	{
-		if (ft_isdigit(line[k]) || line[k] == 45)
-		{
-			TAB[Y][i] = ft_atoi(line + k);
-			i++;
-		}
-		k++;
-	}
-}
-
-void		put_tab(t_env *env)
-{
-	Y = 0;
-	while (Y < Y_MAX)
-	{
-		X = 0;
-		while (X < X_MAX)
-		{
-			ptn(TAB[Y][X]);pts(" ");
-			X++;
-		}
-		ptcn;
-		Y++;
-	}
-}
-
-
 static int		ft_take_nb_elem(char *str)
 {
 	int			nb;
+	int 		k;
 
+	k = 0;
 	nb = 0;
-	while (*str)
+	while (str[k])
 	{
-		if (ft_isdigit(*str) || *str == 45)
-		{
-			++nb;
-			while (*str && ft_isdigit(*str))
-				++str;
+		if (!(ft_isspace(str[k])) && str[k] != ',' && !(ft_isdigit(str[k])) 
+			&& str[k] != '-' && str[k] != 'x'
+			&& !(str[k] >= 'A' && str[k] <= 'F') && !(str[k]))
+			ft_insert(0, "Program stopped : character incorrect.");
+		else if ((str[k] == '-' && str[k + 1] == '-') ||
+				 (str[k] == 'x' && str[k + 1] == 'x'))
+			ft_insert(0, "Program stopped : character incorrect.");
+		else if (ft_isdigit(str[k]) || str[k] == '-' || str[k] == 'x')
+		{	
+			nb++;
+			while (str[k] && (ft_isdigit(str[k]) || str[k] == 'x'))
+				k++;
 		}
-		else
-			++str;
+		if (str[k])
+			k++;
 	}
 	return (nb);
 }
 
 
-static void		ft_fill_tab(char *str, t_env *env)
+static void			ft_get_max_x_y(char *file, t_env *env)
 {
-	char *line;
+	char 	*line;
 	
-	X = 0;
-	ft_insert((FD = open(str, O_RDONLY)) >= 0, "Open error : Couldn't retrive the filename.");
-	while ((Y = get_next_line(FD, &line)) && ++X)
-		ft_insert(Y != -1, "Program stopped : reading file failed.");
-	Y_MAX = X;
-	ft_insert(close(FD) != -1, "Close error : Couldn't close the file.");
-	TAB = (int**)malloc(sizeof(int*) * (Y_MAX+ 1));
-	ft_insert(TAB != NULL, "Program stopped : Malloc of TAB failed.");
-	ft_insert((FD = open(str, O_RDONLY)) >= 0, "Open error : Couldn't retrive the filename.");
-	Y = 0;
-	pte("before while");
-	while (get_next_line(FD, &line))
+	Y_MAX = 0;
+	FD = open(file, O_RDONLY);
+	ft_insert(FD >= 0, "Open error : Couldn't retrive the filename.");
+	while ((I = get_next_line(FD, &line)) && ++Y_MAX)
 	{
-		X_MAX = ft_take_nb_elem(line);
-		TAB[Y] = (int*)malloc(sizeof(int) * (X_MAX + 1));
-		ft_insert(TAB[Y] != NULL, "Program stopped : Malloc of *TAB failed.");
-		pte("before fill line");
-		ft_fill_line(line, env);
+		ft_insert(I != -1, "Program stopped : reading file failed.");	
+	}
+	X_MAX = (int*)malloc(sizeof(int) * (Y_MAX + 1));
+	ft_insert(X_MAX != NULL, "Program stopped : Malloc of X_MAX failed.");
+	ft_insert(close(FD) != -1, "Close error : Couldn't close the file.");
+	FD = open(file, O_RDONLY);
+	ft_insert(FD >= 0, "Open error : Couldn't retrive the filename.");
+	I = 0;
+	while (get_next_line(FD, &line) && I <= Y_MAX)
+	{
+		X_MAX[I] = ft_take_nb_elem(line);
+		I++;
+
+	}
+	
+	ft_insert(close(FD) != -1, "Close error : Couldn't close the file.");
+	ft_strdel(&line);
+}
+
+static void		ft_malloc_pix(char *file, t_env *env)
+{
+	Y = 0;
+	ft_get_max_x_y(file, env);
+	PIX = (t_pix**)malloc(sizeof(t_pix*) * (Y_MAX + 1));
+	while (Y < Y_MAX)
+	{
+		PIX[Y] = (t_pix*)malloc(sizeof(t_pix) * (X_MAX[Y] + 1));
+		ft_insert(X_MAX != NULL, "Program stopped : Malloc of PIX failed.");
+		X = 0;
+		while (X <= X_MAX[Y])
+		{
+			PIX[Y][X].x = 0;	
+			PIX[Y][X].y = 0;	
+			PIX[Y][X].z = 0;	
+			PIX[Y][X].color = 0xFFFFFF;
+			X++;
+		}
 		Y++;
 	}
-	ft_insert(close(FD) != -1, "Close error : Couldn't close the file.");
 }
+	
 
 static void			ft_check_name(char *name, t_env *env)
 {
@@ -113,15 +110,14 @@ int		main(int ac, char **av)
 	ft_insert(env != NULL, "Program stopped : Malloc of env failed.");
 	ft_insert(ac >= 2, "Usage: ./fdf map.fdf [width] [height]");
 	ft_check_name(av[1], env);
-	ft_fill_tab(av[1], env);
-
-	put_tab(env);
+	ft_malloc_pix(av[1], env);
+	ft_fill_pix(av[1], env);
 	pte("\033[32m end");
-	// if (ac == 4)
-	// 	ft_launch_mlx(env, ft_atoi(av[2]), ft_atoi(av[3]));
-	// else if (ac == 3)
-	// 	ft_launch_mlx(env, ft_atoi(av[2]), 0);
-	// else
-	// 	ft_launch_mlx(env, 0, 0);
+	if (ac == 4)
+		ft_launch_mlx(env, ft_atoi(av[2]), ft_atoi(av[3]));
+	else if (ac == 3)
+		ft_launch_mlx(env, ft_atoi(av[2]), 0);
+	else
+		ft_launch_mlx(env, 0, 0);
 	return (0);
 }
