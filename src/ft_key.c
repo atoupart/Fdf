@@ -27,4 +27,3 @@ int	ft_key(int keycode, t_env *e)
 
 	return (0);
 }
-

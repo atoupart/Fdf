@@ -21,47 +21,37 @@ void		ft_draw_fdf(t_env *e)
 	j = 0;
 	k = 0;
 	y = -1;
-	while (++y < 2)
+	while (++y < Y_MAX)
 	{ 
 		j += 20;
-		x = -1;
-		pts("########################   ligne = ");ptn(y);ptcn;ptcn;
-
-		while (++x < 3)
+		k = 0;
+		x = -1;		
+		ptn(X_MAX[y]);ptcn;
+		pts("WHITE = ");ptn(WHITE);ptcn;
+		pts("BLUE = ");ptn(BLUE);ptcn;
+		while (++x < X_MAX[y])
 		{	
 
-			pts("PASSAGE ");ptn(x);ptcn;
 
-			pte(">>>horizontale");
-			k += 20;
+
 			e->x1 = PIX[y][x].x;
 			e->y1 = PIX[y][x].y;
-			
-			PIX[y][x + 1].x += k;
-			e->x2 = PIX[y][x + 1].x;
-			e->y2 = PIX[y][x + 1].y;
-
-			pts("x1 = ");ptn(e->x1);ptcn;
-			pts("y1 = ");ptn(e->y1);ptcn;
-			pts("x2 = ");ptn(e->x2);ptcn;
-			pts("y2 = ");ptn(e->y2);ptcn;ptcn;
-
+			k += 20;
 			if ((x + 1 < X_MAX[y]))
 			{
-				ft_trace_line(e, 0x009900);
+				PIX[y][x + 1].x += k;
+				e->x2 = PIX[y][x + 1].x;
+				e->y2 = PIX[y][x + 1].y;
+				// ptn(x);pts("  couleur  ");ptn(PIX[y][x].color);ptcn;
+				ft_trace_line(e, PIX[y][x].color);
 			}
-
-			pte(">>>verticale");
-			e->x2 = e->x1;
-			PIX[y + 1][x].y += j;
-			e->y2 = PIX[y + 1][x].y;
-			pts("x1 = ");ptn(e->x1);ptcn;
-			pts("y1 = ");ptn(e->y1);ptcn;
-			pts("x2 = ");ptn(e->x2);ptcn;
-			pts("y2 = ");ptn(e->y2);ptcn;ptcn;
-			ft_trace_line(e, 0x009900);
-
-			// if ((y + 1 < Y_MAX))
+			if ((y + 1 < Y_MAX))
+			{	
+				e->x2 = e->x1;
+				PIX[y + 1][x].y += j;
+				e->y2 = PIX[y + 1][x].y;
+				ft_trace_line(e, PIX[y][x].color);
+			}
 		}
 	}
 }
@@ -85,7 +75,7 @@ void			ft_draw_line(t_env *e) // debug
 	}	
 }
 
-void			ft_draw_dot(t_env *e)
+void			ft_draw_dot(t_env *e) // debug
 {
 	int j = 0;
 	int k;
@@ -98,7 +88,7 @@ void			ft_draw_dot(t_env *e)
 		{
 			X1 = k;
 			if (X1 >= 0 && X1 <= SL)
-				*(unsigned int *)(PIXEL + (BPP / 8 * X1 + SL * j)) = YELLOW;
+				*(unsigned int *)(PIXEL + (BPP / 8 * X1 + SL * j)) = RED;
 			k += 20;
 		}
 
@@ -120,13 +110,11 @@ void			ft_launch_mlx(t_env *e, int userwidth, int userheight)
 
 	ft_draw_dot(e);
 
-	mlx_hook(WIN, 2, 1L << 2, ft_key, e);
-
-	*(unsigned int *)PIXEL = RED;
 
 	mlx_put_image_to_window(MLX, WIN, IMAGE, 200, 200);
 	mlx_destroy_image(MLX, IMAGE);
-	
+	mlx_hook(WIN, 17, 1L << 17, ft_error, "Goodbye Boy !"); 
+	mlx_hook(WIN, 2, 1L << 2, ft_key, e);
 	mlx_loop(MLX);
 }
 

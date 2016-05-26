@@ -98,7 +98,7 @@ typedef struct	s_env
 
 void 			ft_trace_line(t_env *e, int color);
 void			ft_draw_line(t_env *e);
-void			ft_insert(int verif, char *str);
+void				ft_insert(int verif, char *str);
 void			ft_launch_mlx(t_env *e, int width, int height);
 void			ft_fill_pix(char *file, t_env *e);
 int				ft_key(int keycode, t_env *e);

@@ -12,13 +12,10 @@
 
 #include "../fdf.h"
 
-void	ft_insert(int verif, char *str)
+void		ft_insert(int verif, char *str)
 {
 	if (!verif)
 	{
-		ft_putstr_fd("\033[31m", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd("\033[0m\n", 2);
-		exit(0);
+		ft_error(str);
 	}
 }
