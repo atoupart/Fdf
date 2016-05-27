@@ -61,6 +61,7 @@ typedef struct 	s_pix
 
 typedef struct	s_env
 {
+	int 		zoom;
 	int 		*x_max;
 	int 		y_max;
 	int 		l;
@@ -95,6 +96,8 @@ typedef struct	s_env
 	int 		**tab;
 	t_pix		**pix;
 }				t_env;
+
+void		ft_draw_fdf(t_env *e);
 
 void 			ft_trace_line(t_env *e, int color);
 void			ft_draw_line(t_env *e);

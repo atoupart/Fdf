@@ -95,20 +95,25 @@ static void			ft_check_name(char *name, t_env *e)
 
 int		main(int ac, char **av)
 {
-	t_env *env;
+	t_env *e;
 
-	env = (t_env*)malloc(sizeof(t_env));
-	ft_insert(env != NULL, "Program stopped : Malloc of env failed.");
+	e = (t_env*)malloc(sizeof(t_env));
+	ft_insert(e != NULL, "Program stopped : Malloc of env failed.");
 	ft_insert(ac >= 2, "Usage: ./fdf map.fdf [width] [height]");
-	ft_check_name(av[1], env);
-	ft_malloc_pix(av[1], env);
-	ft_fill_pix(av[1], env);
+	ft_check_name(av[1], e);
+	ft_malloc_pix(av[1], e);
+	ft_fill_pix(av[1], e);
 	pte("\033[32m end\033[31m");
+	e->zoom = 20;
 	if (ac == 4)
-		ft_launch_mlx(env, ft_atoi(av[2]), ft_atoi(av[3]));
+		ft_launch_mlx(e, ft_atoi(av[2]), ft_atoi(av[3]));
 	else if (ac == 3)
-		ft_launch_mlx(env, ft_atoi(av[2]), 0);
+		ft_launch_mlx(e, ft_atoi(av[2]), 0);
 	else
-		ft_launch_mlx(env, 0, 0);
+		ft_launch_mlx(e, 0, 0);
+	ft_draw_fdf(e);
+	mlx_hook(WIN, 17, 1L << 17, ft_error, "Goodbye Boy !"); 
+	mlx_hook(WIN, 2, 1L << 2, ft_key, e);
+	mlx_loop(MLX);
 	return (0);
 }

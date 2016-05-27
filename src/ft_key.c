@@ -20,10 +20,11 @@ int	ft_key(int keycode, t_env *e)
 		exit(EXIT_SUCCESS);
 	}
 	if (keycode == 69 || keycode == 78)
-	{	
-		I += (keycode == 69) ? 20 : -20;
-		ft_draw_line(e);
+	{
+		e->zoom += (keycode == 69) ? 2 : -2;
+		if (e->zoom <= 0)
+			e->zoom = 2;
 	}
-
+	ft_draw_fdf(e);
 	return (0);
 }
