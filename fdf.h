@@ -20,7 +20,7 @@
 # define RED 0xFF0000
 # define GREEN 0x00FF00
 # define BLUE 0x0000FF
-# define WHITE 0xFFFFFF
+# define WHITE 0x999999
 # define YELLOW 0xFFFF00
 # define BLACK 0x000000
 # define PURPLE 0x800080
@@ -97,14 +97,42 @@ typedef struct	s_env
 	t_pix		**pix;
 }				t_env;
 
-void		ft_draw_fdf(t_env *e);
 
-void 			ft_trace_line(t_env *e, int color);
-void			ft_draw_line(t_env *e);
-void				ft_insert(int verif, char *str);
-void			ft_launch_mlx(t_env *e, int width, int height);
+/*
+** ft_parseur.c
+*/
 void			ft_fill_pix(char *file, t_env *e);
+int				ft_take_nb_elem(char *str);
+void			ft_get_max_x_y(char *file, t_env *e);
+void			ft_malloc_pix(char *file, t_env *e);
+void			ft_check_name(char *name, t_env *e);
+
+/*
+** ft_tracer.c
+*/
+void 			ft_trace_line(t_env *e, int color);
+
+/*
+** ft_tool.c
+*/
+void			ft_insert(int verif, char *str);
 int				ft_key(int keycode, t_env *e);
+
+/*
+** ft_make_fdf.c
+*/
+void			ft_make_fdf(t_env *e, int width, int height);
+void			ft_init_mlx(t_env *e, int width, int height);
+void			ft_launch_draw(t_env *e);
+void			ft_init_var(t_env *e);
+
+
+/*
+** ft_draw.c
+*/
+void			ft_draw_fdf(t_env *e);
+void			ft_debug_dot(t_env *e);
+void			ft_debug_line(t_env *e);
 
 #endif
  

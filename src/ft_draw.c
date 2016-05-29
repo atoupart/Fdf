@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_launch_mlx.c                                    :+:      :+:    :+:   */
+/*   ft_draw.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoupart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,15 @@
 
 #include "../fdf.h"
 
-void			ft_draw_line(t_env *e) // debug
+void			ft_debug_line(t_env *e) // debug
 {
 	int x1 = 0;
 	int y1 = 0;
 	int x2 = 999;
 	int y2 = 0;
 	int x = 0;
+	I++;
+	pts("--------------inside debug line nb = ");ptn(I);pts("   e_>zoom = ");ptn(e->zoom);ptcn;ptcn;
 
 	while (y1 <= 600)
 	{
@@ -32,11 +34,14 @@ void			ft_draw_line(t_env *e) // debug
 	}	
 }
 
-void			ft_draw_dot(t_env *e) // debug
+void			ft_debug_dot(t_env *e) // debug
 {
 	int j = 0;
 	int k;
 	Y = -1;
+	L++;
+	pts("...............inside debug dot nb = ");ptn(L);pts("    e_>zoom = ");ptn(e->zoom);ptcn;ptcn;
+
 	while (++Y < Y_MAX)
 	{
 		X = -1;
@@ -59,24 +64,19 @@ void		ft_draw_fdf(t_env *e)
 	int j; // zoom vertical
 	int x;
 	int y;
-	pte("debug 1");
 
-	mlx_clear_window(MLX, WIN);
-	IMAGE = mlx_new_image(MLX, WIDTH, HEIGHT);// a proteger
-	PIXEL = mlx_get_data_addr(IMAGE, &BPP, &SL, &e->endian); // a proteger
+
 	j = 0;
 	k = 0;
 	y = -1;
-	ft_draw_line(e);
-	ft_draw_dot(e);
-	while (++y < Y_MAX)
+	H++;
+	pts("###############inside draw fdf nb = ");ptn(H);pts("   e_>zoom = ");ptn(e->zoom);ptcn;ptcn;
+	while (++y < 2) // normalement Y_MAX
 	{ 
-		pte("dyolo jsuis pqsser"); ///  ya rien qui s'afficher trouver pouruuuuauoiii!
-
 		j += e->zoom;
 		k = 0;
 		x = -1;		
-		while (++x < X_MAX[y])
+		while (++x < 5)  // normalement X_MAX[y]
 		{	
 			e->x1 = PIX[y][x].x;
 			e->y1 = PIX[y][x].y;
@@ -86,6 +86,10 @@ void		ft_draw_fdf(t_env *e)
 				PIX[y][x + 1].x += k;
 				e->x2 = PIX[y][x + 1].x;
 				e->y2 = PIX[y][x + 1].y;
+				pts("k = ");ptn(k);ptcn;
+
+				pts("e->x2 = ");ptn(e->x2);ptcn;
+
 				ft_trace_line(e, PIX[y][x].color);
 			}
 			if ((y + 1 < Y_MAX))
@@ -95,21 +99,10 @@ void		ft_draw_fdf(t_env *e)
 				e->y2 = PIX[y + 1][x].y;
 				ft_trace_line(e, PIX[y][x].color);
 			}
+
 		}
 	}
-	mlx_put_image_to_window(MLX, WIN, IMAGE, 200, 200);
-	mlx_destroy_image(MLX, IMAGE);
+
 }
 
-
-
-void			ft_launch_mlx(t_env *e, int userwidth, int userheight)
-{
-	WIDTH = (userwidth > 0 ? userwidth : 1500);
-	HEIGHT = (userheight > 0 ? userheight : 1500);
-	MLX = mlx_init();
-	WIN = mlx_new_window(MLX, WIDTH, HEIGHT, "F_D_F"); // a proteger
-	IMAGE = mlx_new_image(MLX, WIDTH, HEIGHT);// a proteger
-	PIXEL = mlx_get_data_addr(IMAGE, &BPP, &SL, &e->endian); // a proteger
-}
 

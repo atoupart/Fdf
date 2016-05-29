@@ -60,13 +60,13 @@ int	ft_exit(int keycode, void *param)
 
 int	main(void)
 {
-	t_env *env;
-	env = (t_env*)ft_memalloc(sizeof(t_env));
+	t_env *e;
+	e = (t_env*)ft_memalloc(sizeof(t_env));
 	MLX = mlx_init();
 	WIN = mlx_new_window(MLX, 1000, 1000, "testit");
 	mlx_key_hook(WIN, ft_exit, 0);
 	IMAGE = mlx_new_image(MLX, 1000, 1000);
-	PIXEL = mlx_get_data_addr(IMAGE, &BPP, &SL, &env->endian);
+	PIXEL = mlx_get_data_addr(IMAGE, &BPP, &SL, &e->endian);
 	COLOR =	mlx_get_color_value(MLX, 0xFF0000);
 	int x1 = 0;
 	int y1 = 0;

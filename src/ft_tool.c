@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_key.c                                           :+:      :+:    :+:   */
+/*   ft_tool.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atoupart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -25,6 +25,14 @@ int	ft_key(int keycode, t_env *e)
 		if (e->zoom <= 0)
 			e->zoom = 2;
 	}
-	ft_draw_fdf(e);
+	ft_launch_draw(e);
 	return (0);
+}
+
+void		ft_insert(int verif, char *str)
+{
+	if (!verif)
+	{
+		ft_error(str);
+	}
 }

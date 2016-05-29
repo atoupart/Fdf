@@ -23,11 +23,11 @@ FRAME	= -framework OpenGL -framework AppKit
 HEADER	= fdf.h
 
 FILES	= main.c\
-		ft_insert.c\
-		ft_fill_pix.c\
-		ft_launch_mlx.c\
-		ft_key.c\
+		ft_tool.c\
 		ft_tracer.c\
+		ft_parseur.c\
+		ft_make_fdf.c\
+		ft_draw.c
 
 SRC		= $(addprefix src/, $(FILES))
 
