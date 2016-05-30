@@ -25,6 +25,7 @@ int	ft_key(int keycode, t_env *e)
 		if (e->zoom <= 0)
 			e->zoom = 2;
 	}
+	ft_init_var(e);
 	ft_launch_draw(e);
 	return (0);
 }
@@ -34,5 +35,23 @@ void		ft_insert(int verif, char *str)
 	if (!verif)
 	{
 		ft_error(str);
+	}
+}
+
+void	ft_reset_pix(t_env *e)
+{
+	int y;
+	int x;
+
+
+	y = -1;
+	while (++y < Y_MAX)
+	{
+		x = -1;
+		while (++x <= X_MAX[y])
+		{
+			PIX[y][x].x = 0;	
+			PIX[y][x].y = 0;	
+		}
 	}
 }

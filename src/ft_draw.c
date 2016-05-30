@@ -70,34 +70,43 @@ void		ft_draw_fdf(t_env *e)
 	k = 0;
 	y = -1;
 	H++;
+	pts("e->x1 = ");ptn(e->x1);ptcn;
+	pts("e->y1 = ");ptn(e->y1);ptcn;
+	pts("e->x2 = ");ptn(e->x2);ptcn;
+	pts("e->y2 = ");ptn(e->y2);ptcn;
 	pts("###############inside draw fdf nb = ");ptn(H);pts("   e_>zoom = ");ptn(e->zoom);ptcn;ptcn;
-	while (++y < 2) // normalement Y_MAX
+	while (++y < Y_MAX) // normalement Y_MAX
 	{ 
 		j += e->zoom;
 		k = 0;
 		x = -1;		
-		while (++x < 5)  // normalement X_MAX[y]
+		while (++x < X_MAX[y])  // normalement X_MAX[y]
 		{	
-			e->x1 = PIX[y][x].x;
-			e->y1 = PIX[y][x].y;
+			pte("debug1");
+
+			e->x1 = e->pix[y][x].x;
+			pte("debug2");
+			e->y1 = e->pix[y][x].y;
 			k += e->zoom;
 			if ((x + 1 < X_MAX[y]))
-			{
-				PIX[y][x + 1].x += k;
-				e->x2 = PIX[y][x + 1].x;
-				e->y2 = PIX[y][x + 1].y;
-				pts("k = ");ptn(k);ptcn;
+			{	
+				pte("---HORIZONTAL---");
 
-				pts("e->x2 = ");ptn(e->x2);ptcn;
+				e->pix[y][x + 1].x += k;
+				e->x2 = e->pix[y][x + 1].x;
+				e->y2 = e->pix[y][x + 1].y;
 
-				ft_trace_line(e, PIX[y][x].color);
+				ft_trace_line(e, e->pix[y][x].color);
 			}
 			if ((y + 1 < Y_MAX))
 			{	
+				pte("|||VERTICAL|||");
+
 				e->x2 = e->x1;
-				PIX[y + 1][x].y += j;
-				e->y2 = PIX[y + 1][x].y;
-				ft_trace_line(e, PIX[y][x].color);
+				e->pix[y + 1][x].y += j;
+				e->y2 = e->pix[y + 1][x].y;
+
+				ft_trace_line(e, e->pix[y][x].color);
 			}
 
 		}

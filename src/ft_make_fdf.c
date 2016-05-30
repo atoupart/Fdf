@@ -14,7 +14,6 @@
 
 void			ft_launch_draw(t_env *e)
 {
-	ft_init_var(e);
 	mlx_clear_window(MLX, WIN);
 	IMAGE = mlx_new_image(MLX, WIDTH, HEIGHT);
 	PIXEL = mlx_get_data_addr(IMAGE, &BPP, &SL, &e->endian);
@@ -54,6 +53,7 @@ void			ft_init_var(t_env *e)
 	e->y1 = 0;
 	e->x2 = 0;
 	e->y2 = 0;
+	ft_reset_pix(e);
 }
 
 void			ft_make_fdf(t_env *e, int userwidth, int userheight)
