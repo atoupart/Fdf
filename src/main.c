@@ -25,9 +25,7 @@ int		main(int ac, char **av)
 	pte("\033[32m parseur accomplited\033[31m");
 
 	e->zoom = 20;
-	I = 0;
-	L = 0;
-	H = 0;
+	e->alt = 0;
 	if (ac == 4)
 		ft_make_fdf(e, ft_atoi(av[2]), ft_atoi(av[3]));
 	else if (ac == 3)

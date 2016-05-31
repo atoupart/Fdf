@@ -30,10 +30,6 @@
 # define Z 		e->z
 # define X		e->x
 # define Y		e->y
-# define X1		e->x1
-# define Y1		e->y2
-# define Y2     e->y2
-# define X2     e->x2
 # define FD 	e->fd
 # define MLX	e->mlx
 # define WIN	e->win
@@ -47,8 +43,6 @@
 # define TAB 	e->tab
 # define PIX 	e->pix
 # define I 		e->i
-# define L 		e->l
-# define H 		e->h
 
 typedef struct 	s_pix
 {
@@ -62,6 +56,7 @@ typedef struct 	s_pix
 typedef struct	s_env
 {
 	int 		zoom;
+	int 		alt;
 	int 		*x_max;
 	int 		y_max;
 	int 		l;
@@ -74,12 +69,15 @@ typedef struct	s_env
 	int			y1;
 	int			x2;
 	int			y2;
+	int 		z1;
+	int 		z2;
 	int 		dx;
 	int 		dy;
 	int 		xinc;
 	int 		yinc;
 	int 		cumul;
-
+	int  		lar;
+	int 		lon;
 
 
 	int 		fd;
@@ -117,6 +115,8 @@ void 			ft_trace_line(t_env *e, int color);
 */
 void			ft_insert(int verif, char *str);
 int				ft_key(int keycode, t_env *e);
+void			ft_reset_pix(t_env *e);
+
 
 /*
 ** ft_make_fdf.c
@@ -131,8 +131,7 @@ void			ft_init_var(t_env *e);
 ** ft_draw.c
 */
 void			ft_draw_fdf(t_env *e);
-void			ft_debug_dot(t_env *e);
-void			ft_debug_line(t_env *e);
+
 
 #endif
  

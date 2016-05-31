@@ -25,6 +25,18 @@ int	ft_key(int keycode, t_env *e)
 		if (e->zoom <= 0)
 			e->zoom = 2;
 	}
+	if (keycode == 126)
+		e->lon -= 100;
+	if (keycode == 125)
+		e->lon += 100;
+	if (keycode == 123)
+		e->lar -= 100;
+	if (keycode == 124)
+		e->lar += 100;
+	if (keycode == 24)
+		e->alt -= 20;
+	if (keycode == 27)
+		e->alt += 20;
 	ft_init_var(e);
 	ft_launch_draw(e);
 	return (0);

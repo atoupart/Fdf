@@ -28,12 +28,12 @@ void		ft_fill_pix(char *file, t_env *e)
 		while (line[++k])
 		{
 			if (ft_isdigit(line[k]) || line[k] == '-')
-				PIX[Y][++X].z = ft_atoi(line + k);
+				e->pix[Y][++X].z = ft_atoi(line + k);
 				while ((ft_isdigit(line[k]) || line[k] == '-') && line[k + 1])
 					k++;
 			if (line[k] == ',')
 			{
-				PIX[Y][X].color = ft_atoi_b(line + k + 1, 16);
+				e->pix[Y][X].color = ft_atoi_b(line + k + 1, 16);
 				ft_insert(PIX[Y][X].color != 0, "Program stopped : malloc of pix.color failed");
 				k++;
 				while ((ft_isdigit(line[k]) || line[k] == 'x' || 
@@ -100,18 +100,18 @@ void		ft_malloc_pix(char *file, t_env *e)
 {
 	Y = -1;
 	ft_get_max_x_y(file, e);
-	PIX = (t_pix**)malloc(sizeof(t_pix*) * (Y_MAX + 1));
+	e->pix = (t_pix**)malloc(sizeof(t_pix*) * (Y_MAX + 1));
 	while (++Y < Y_MAX)
 	{
-		PIX[Y] = (t_pix*)malloc(sizeof(t_pix) * (X_MAX[Y] + 1));
+		e->pix[Y] = (t_pix*)malloc(sizeof(t_pix) * (X_MAX[Y] + 1));
 		ft_insert(X_MAX != NULL, "Program stopped : Malloc of PIX failed.");
 		X = -1;
 		while (++X <= X_MAX[Y])
 		{
-			PIX[Y][X].x = 0;	
-			PIX[Y][X].y = 0;	
-			PIX[Y][X].z = 0;	
-			PIX[Y][X].color = WHITE;
+			e->pix[Y][X].x = 0;	
+			e->pix[Y][X].y = 0;	
+			e->pix[Y][X].z = 0;	
+			e->pix[Y][X].color = WHITE;
 		}
 	}
 }

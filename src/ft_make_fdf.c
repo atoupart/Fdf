@@ -18,16 +18,9 @@ void			ft_launch_draw(t_env *e)
 	IMAGE = mlx_new_image(MLX, WIDTH, HEIGHT);
 	PIXEL = mlx_get_data_addr(IMAGE, &BPP, &SL, &e->endian);
 
-
-	// ft_debug_line(e);
-	// ft_debug_dot(e);
-
-
 	ft_draw_fdf(e);
 
-
-
-	mlx_put_image_to_window(MLX, WIN, IMAGE, 200, 200);
+	mlx_put_image_to_window(MLX, WIN, IMAGE, 0, 0);
 	mlx_destroy_image(MLX, IMAGE);
 
 }
@@ -36,6 +29,8 @@ void			ft_init_mlx(t_env *e, int userwidth, int userheight)
 {
 	WIDTH = (userwidth > 0 ? userwidth : 1500);
 	HEIGHT = (userheight > 0 ? userheight : 1500);
+	e->lar = WIDTH / 4;
+	e->lon = HEIGHT / 4;
 	MLX = mlx_init();
 	WIN = mlx_new_window(MLX, WIDTH, HEIGHT, "F_D_F"); 
 	ft_insert(WIN != NULL, "Program stopped : malloc WIN failed.");
@@ -43,10 +38,8 @@ void			ft_init_mlx(t_env *e, int userwidth, int userheight)
 	ft_insert(IMAGE != NULL, "Program stopped : malloc IMAGE failed.");
 	PIXEL = mlx_get_data_addr(IMAGE, &BPP, &SL, &e->endian); 
 	ft_insert(WIN != NULL, "Program stooped : malloc PIXEL failed.");
-
-
-
 }
+
 void			ft_init_var(t_env *e)
 {
 	e->x1 = 0;
@@ -59,8 +52,6 @@ void			ft_init_var(t_env *e)
 void			ft_make_fdf(t_env *e, int userwidth, int userheight)
 {
 	ft_init_mlx(e, userwidth, userheight);
-
-
 
 	ft_launch_draw(e);
 

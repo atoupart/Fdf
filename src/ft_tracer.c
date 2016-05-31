@@ -12,7 +12,7 @@
 
 #include "../fdf.h"
 
-static void		ft_put_pixel(t_env *e, int y, int x, int color)
+static void		ft_put_pixel(t_env *e, int x, int y, int color)
 {
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
@@ -34,7 +34,12 @@ static void		ft_trace_line_if(t_env *e, int color)
 			e->cumul -= e->dx;
 			e->y += e->yinc;
 		}
-		ft_put_pixel(e, e->y, e->x, color);
+		ft_put_pixel(e, e->x + e->lar, e->y + e->lon, color);  // normal sans iso
+
+		// ft_put_pixel(e, e->x + e->y / 3 + e->lar, e->y - e->x / 3+ e->lon, color); // iso >>
+
+
+
 	}
 }
 
@@ -49,9 +54,15 @@ static void		ft_trace_line_else(t_env *e, int color)
 		if (e->cumul >= e->dy)
 		{
 			e->cumul -= e->dy;
-			e->y += e->xinc;
+			e->x += e->xinc;
 		}
-		ft_put_pixel(e, e->y, e->x, color);
+		ft_put_pixel(e, e->x + e->lar, e->y + e->lon, color);  // normal sans iso
+
+		// ft_put_pixel(e, e->x + e->y / 3 + e->lar, e->y - e->x / 3 + e->lon, color); // iso >>
+
+
+
+
 	}
 }
 
@@ -65,7 +76,14 @@ void		ft_trace_line(t_env *e, int color)
 	e->yinc = (e->dy > 0) ? 1 :  -1;
 	e->dx = abs(e->dx);
 	e->dy = abs(e->dy);
-	ft_put_pixel(e, e->y, e->x, color);
+
+	ft_put_pixel(e, e->x + e->lar, e->y + e->lon, color);  // normal sans iso
+
+	// ft_put_pixel(e, e->x + e->y / 3 + e->lar, e->y - e->x  / 3+ e->lon, color);  // iso >>
+
+
+
+
 	if (e->dx > e->dy)
 		ft_trace_line_if(e, color);
 	else
