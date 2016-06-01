@@ -34,9 +34,9 @@ static void		ft_trace_line_if(t_env *e, int color)
 			e->cumul -= e->dx;
 			e->y += e->yinc;
 		}
-		ft_put_pixel(e, e->x + e->lar, e->y + e->lon, color);  // normal sans iso
+		// ft_put_pixel(e, e->x + e->lar, e->y + e->lon, color);  // normal sans iso
 
-		// ft_put_pixel(e, e->x + e->y / 3 + e->lar, e->y - e->x / 3+ e->lon, color); // iso >>
+		ft_put_pixel(e, e->x + e->y / 3 + e->lar, e->y - e->x / 3+ e->lon, color); // iso >>
 
 
 
@@ -56,9 +56,9 @@ static void		ft_trace_line_else(t_env *e, int color)
 			e->cumul -= e->dy;
 			e->x += e->xinc;
 		}
-		ft_put_pixel(e, e->x + e->lar, e->y + e->lon, color);  // normal sans iso
+		// ft_put_pixel(e, e->x + e->lar, e->y + e->lon, color);  // normal sans iso
 
-		// ft_put_pixel(e, e->x + e->y / 3 + e->lar, e->y - e->x / 3 + e->lon, color); // iso >>
+		ft_put_pixel(e, e->x + e->y / 3 + e->lar, e->y - e->x / 3 + e->lon, color); // iso >>
 
 
 
@@ -77,9 +77,9 @@ void		ft_trace_line(t_env *e, int color)
 	e->dx = abs(e->dx);
 	e->dy = abs(e->dy);
 
-	ft_put_pixel(e, e->x + e->lar, e->y + e->lon, color);  // normal sans iso
+	// ft_put_pixel(e, e->x + e->lar, e->y + e->lon, color);  // normal sans iso
 
-	// ft_put_pixel(e, e->x + e->y / 3 + e->lar, e->y - e->x  / 3+ e->lon, color);  // iso >>
+	ft_put_pixel(e, e->x + e->y / 3 + e->lar, e->y - e->x  / 3+ e->lon, color);  // iso >>
 
 
 
