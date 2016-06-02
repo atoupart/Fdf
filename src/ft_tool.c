@@ -34,9 +34,9 @@ int	ft_key(int keycode, t_env *e)
 	if (keycode == 124)
 		e->lar += 100;
 	if (keycode == 24)
-		e->alt += 20;
+		e->alt += 2;
 	if (keycode == 27)
-		e->alt -= 20;
+		e->alt -= 2;
 	ft_init_var(e);
 	ft_launch_draw(e);
 	return (0);
