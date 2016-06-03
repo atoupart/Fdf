@@ -58,6 +58,7 @@ void		ft_draw_fdf(t_env *e)
 				e->pix[y][x + 1].x += k;
 				e->z2 = e->pix[y][x + 1].z;
 				e->z2 = expo_zoom(e, e->z2);
+
 				e->x2 = e->pix[y][x + 1].x;
 				e->y2 = e->pix[y][x + 1].y;
 				e->y2 -= e->z2;
@@ -72,6 +73,7 @@ void		ft_draw_fdf(t_env *e)
 				e->pix[y + 1][x].y += j;
 				e->z2 = e->pix[y + 1][x].z;
 				e->z2 = expo_zoom(e, e->z2);
+
 				e->x2 = e->x1;
 				e->y2 = e->pix[y + 1][x].y;
 				e->y2 -= e->z2;

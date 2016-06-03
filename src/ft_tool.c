@@ -37,7 +37,19 @@ int	ft_key(int keycode, t_env *e)
 		e->alt += 2;
 	if (keycode == 27)
 		e->alt -= 2;
-	ft_init_var(e);
+	if (keycode == 15)
+	{
+		e->lar = WIDTH / 4;
+		e->lon = HEIGHT / 4;
+		e->zoom = 20;
+		e->alt = 0;
+	}
+	if (keycode == 34)
+	{
+		//idée ! pour un echange d'iso, : variable en ternaire qui se multiplie par -1 et appelle dans une 
+		// fonction les deux iso different (ou plus) 
+	}
+	ft_reset_pix(e);
 	ft_launch_draw(e);
 	return (0);
 }

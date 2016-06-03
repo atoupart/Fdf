@@ -40,14 +40,12 @@ void			ft_init_mlx(t_env *e, int userwidth, int userheight)
 	ft_insert(WIN != NULL, "Program stooped : malloc PIXEL failed.");
 }
 
-void			ft_init_var(t_env *e)
-{
-	e->x1 = 0;
-	e->y1 = 0;
-	e->x2 = 0;
-	e->y2 = 0;
-	ft_reset_pix(e);
-}
+// void			ft_init_var(t_env *e)
+// {
+// 	ft_reset_pix(e);
+// 	e->alt = 0;
+// 	e->zoom = 0;
+// }
 
 void			ft_make_fdf(t_env *e, int userwidth, int userheight)
 {
