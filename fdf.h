@@ -44,43 +44,40 @@
 # define PIX 	e->pix
 # define I 		e->i
 
-typedef struct 	s_pix
+typedef struct	s_pix
 {
-	int 		x;
-	int 		y;
-	int 		z;
-	int 		color;
+	int			x;
+	int			y;
+	int			z;
+	int			color;
 
-} 				t_pix;
+}				t_pix;
 
 typedef struct	s_env
 {
-	int 		zoom;
-	int 		alt;
-	int 		*x_max;
-	int 		y_max;
-	int 		l;
-	int 		h;
-	int 		i;
-	int 		z;
-	int 		x;
-	int 		y;
-	int 		x1;
+	int			zoom;
+	int			alt;
+	int			*x_max;
+	int			y_max;
+	int			i;
+	int			z;
+	int			x;
+	int			y;
+	int			x1;
 	int			y1;
 	int			x2;
 	int			y2;
-	int 		z1;
-	int 		z2;
-	int 		dx;
-	int 		dy;
-	int 		xinc;
-	int 		yinc;
-	int 		cumul;
-	int  		lar;
-	int 		lon;
-
-
-	int 		fd;
+	int			z1;
+	int			z2;
+	int			dx;
+	int			dy;
+	int			xinc;
+	int			yinc;
+	int			cumul;
+	int			lar;
+	int			lon;
+	int			iso;
+	int			fd;
 	void		*mlx;
 	void		*win;
 	void		*image;
@@ -89,17 +86,16 @@ typedef struct	s_env
 	int			size_line;
 	int			color;
 	int			endian;
-	int 		width;
-	int 		height;
-	int 		**tab;
+	int			width;
+	int			height;
+	int			**tab;
 	t_pix		**pix;
 }				t_env;
-
 
 /*
 ** ft_parseur.c
 */
-void			ft_fill_pix(char *file, t_env *e);
+void			ft_fill_pix(char *file, char *line, t_env *e);
 int				ft_take_nb_elem(char *str);
 void			ft_get_max_x_y(char *file, t_env *e);
 void			ft_malloc_pix(char *file, t_env *e);
@@ -108,15 +104,15 @@ void			ft_check_name(char *name, t_env *e);
 /*
 ** ft_tracer.c
 */
-void 			ft_trace_line(t_env *e, int color);
+void			ft_trace_line(t_env *e, int color);
 
 /*
 ** ft_tool.c
 */
 void			ft_insert(int verif, char *str);
 int				ft_key(int keycode, t_env *e);
+int				ft_key2(int keycode, t_env *e);
 void			ft_reset_pix(t_env *e);
-
 
 /*
 ** ft_make_fdf.c
@@ -126,12 +122,9 @@ void			ft_init_mlx(t_env *e, int width, int height);
 void			ft_launch_draw(t_env *e);
 void			ft_init_var(t_env *e);
 
-
 /*
 ** ft_draw.c
 */
 void			ft_draw_fdf(t_env *e);
 
-
 #endif
- 
